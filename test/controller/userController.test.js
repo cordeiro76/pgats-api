@@ -5,7 +5,7 @@ const { expect } = require('chai');
 const app = require('../../rest/app')
 const userService = require('../../src/services/userService')
 
-describe('Checkout Controller', () => {
+describe('User Controller', () => {
     describe('POST /api/users/register', () => {
         it('Quando é informado dados válidos é cadastrado e recebo 201', async () => {
             const resposta = await request(app)
@@ -56,7 +56,7 @@ describe('Checkout Controller - register (mock)', () => {
         sinon.restore();
     });
 
-    it.only('Teste usando mock: Deve cadastrar usuário com dados válidos e retornar 201', async () => {
+    it('Teste usando mock: Deve cadastrar usuário com dados válidos e retornar 201', async () => {
         const mockUser = {
             name: 'jessica_mock',
             email: 'jessica_mock@test.com',
