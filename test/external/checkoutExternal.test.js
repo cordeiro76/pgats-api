@@ -3,10 +3,10 @@ const sinon = require('sinon');
 const { expect } = require('chai');
 
 const app = require('../../rest/app')
-const userService = require('../../src/services/checkoutService')
+//const userService = require('../../src/services/checkoutService')
 
 describe('Checkout Controller', () => {
-    describe.only('POST /api/checkout', () => {
+    describe('POST /api/checkout', () => {
         it('Quando é informado dados válidos recebo 200', async () => {
             const respostaLogin = await request('http://localhost:3000')
                 .post('/api/users/login')
@@ -22,7 +22,7 @@ describe('Checkout Controller', () => {
                 .send({
                     items: [
                         {
-                            productId: 1,
+                            productId: 2,
                             quantity: 1
                         }
                     ],
