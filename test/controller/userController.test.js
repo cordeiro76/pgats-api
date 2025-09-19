@@ -11,15 +11,17 @@ describe('Checkout Controller', () => {
             const resposta = await request(app)
                 .post('/api/users/register')
                 .send({
-                    name: "jessica",
+                    name: "jessicaa",
                     email: "jessica_valid@test.com",
                     password: "Jessic@12345"
                 });
 
             expect(resposta.status).to.equal(201);
-            expect(resposta.body).to.have.property('user');
-            expect(resposta.body.user).to.have.property('name', 'jessica');
-            expect(resposta.body.user).to.have.property('email', 'jessica_valid@test.com');
+
+            const respEsperada = require('../fixture/responses/quandoInformoValores.json');
+            expect(resposta.body).to.deep.equal(respEsperada);
+
+
         });
 
         it('Quando é informado email duplicado recebo 400', async () => {
@@ -54,7 +56,7 @@ describe('Checkout Controller - register (mock)', () => {
         sinon.restore();
     });
 
-    it('Teste usando mock: Deve cadastrar usuário com dados válidos e retornar 201', async () => {
+    it.only('Teste usando mock: Deve cadastrar usuário com dados válidos e retornar 201', async () => {
         const mockUser = {
             name: 'jessica_mock',
             email: 'jessica_mock@test.com',
