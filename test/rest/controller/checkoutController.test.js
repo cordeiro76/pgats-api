@@ -2,11 +2,12 @@ const request = require('supertest');
 const sinon = require('sinon');
 const { expect } = require('chai');
 
-const app = require('../../rest/app')
-//const userService = require('../../src/services/checkoutService')
+const app = require('../../../rest/app')
+const userService = require('../../../src/services/checkoutService')
 
-describe('Checkout External', () => {
-    describe('POST /api/checkout', () => {
+describe('Checkout Controller', () => {
+    describe.only('POST /api/checkout', () => {
+
         beforeEach(async () => {
             const respostaLogin = await request(app)
                 .post('/api/users/login')
@@ -20,15 +21,7 @@ describe('Checkout External', () => {
         });
 
         it('Quando é informado dados válidos recebo 200', async () => {
-            const respostaLogin = await request('http://localhost:3000')
-                .post('/api/users/login')
-                .send({
-                    "email": "alice@email.com",
-                    "password": "123456"
-                });
-            const token = respostaLogin.body.token;
-
-            const resposta = await request('http://localhost:3000')
+            const resposta = await request(app)
                 .post('/api/checkout')
                 .set('Authorization', `Bearer ${token}`)
                 .send({
@@ -54,9 +47,9 @@ describe('Checkout External', () => {
         });
 
         it('Quando da erro no checkout recebo 401', async () => {
-            const resposta = await request('http://localhost:3000')
+            const resposta = await request(app)
                 .post('/api/checkout')
-                // sem Authorization de propósito
+                //.set('Authorization', `Bearer ${token}`) sem Authorization de propósito
                 .send({
                     items: [
                         {
@@ -72,14 +65,15 @@ describe('Checkout External', () => {
                         expiry: "06/06",
                         cvv: "123"
                     }
+
                 });
 
             expect(resposta.status).to.equal(401);
-
+            //console.log(resposta.body)
 
         });
         it('Quando não é inserido os dados do cartão recebo 400', async () => {
-            const resposta = await request('http://localhost:3000')
+            const resposta = await request(app)
                 .post('/api/checkout')
                 .set('Authorization', `Bearer ${token}`)
                 .send({
@@ -91,7 +85,7 @@ describe('Checkout External', () => {
                     ],
                     freight: 11,
                     paymentMethod: "credit_card"
-
+                    
 
                 });
 
@@ -101,3 +95,4 @@ describe('Checkout External', () => {
         });
     });
 });
+    

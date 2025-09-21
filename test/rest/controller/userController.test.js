@@ -2,8 +2,8 @@ const request = require('supertest');
 const sinon = require('sinon');
 const { expect } = require('chai');
 
-const app = require('../../rest/app')
-const userService = require('../../src/services/userService')
+const app = require('../../../rest/app')
+const userService = require('../../../src/services/userService')
 
 describe('User Controller', () => {
     describe('POST /api/users/register', () => {
@@ -18,7 +18,7 @@ describe('User Controller', () => {
 
             expect(resposta.status).to.equal(201);
 
-            const respEsperada = require('../fixture/responses/quandoInformoValores.json');
+            const respEsperada = require('../../fixture/responses/quandoInformoValores.json');
             expect(resposta.body).to.deep.equal(respEsperada);
 
 

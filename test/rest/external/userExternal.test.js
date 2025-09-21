@@ -1,7 +1,7 @@
 const request = require('supertest');
 const { expect } = require('chai');
 
-describe('Checkout Controller', () => {
+describe('Testes de Register de User com REST', () => {
     describe('POST /api/users/register', () => {
         it('Quando é informado dados válidos, o usuário é cadastrado e recebo 201', async () => {
             const emailUnico = `jessica_${new Date().getTime()}@test.com`;
